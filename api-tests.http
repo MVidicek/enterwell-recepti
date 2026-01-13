@@ -1,0 +1,43 @@
+### Dohvati sve recepte
+GET http://localhost:3000/api/recipes
+Accept: application/json
+
+### Dohvati jedan recept
+GET http://localhost:3000/api/recipes/kremasta-tjestenina-s-piletinom
+Accept: application/json
+
+### Kreiraj novi recept
+POST http://localhost:3000/api/recipes
+Content-Type: application/json
+
+{
+  "title": "Testni recept",
+  "lead": "Ovo je kratak opis testnog recepta za provjeru API-ja.",
+  "prepTime": 30,
+  "servings": 4,
+  "difficulty": "easy",
+  "category": "Glavna jela",
+  "cookingMethod": "Kuhanje",
+  "tags": ["test", "api"],
+  "ingredients": [
+    { "name": "Sastojak 1", "amount": 100, "unit": "g" },
+    { "name": "Sastojak 2", "amount": 2, "unit": "kom" }
+  ],
+  "steps": [
+    "Prvi korak pripreme.",
+    "Drugi korak pripreme.",
+    "Treći korak pripreme."
+  ]
+}
+
+### Ažuriraj recept
+PUT http://localhost:3000/api/recipes/testni-recept
+Content-Type: application/json
+
+{
+  "prepTime": 45,
+  "difficulty": "medium"
+}
+
+### Obriši recept
+DELETE http://localhost:3000/api/recipes/testni-recept
