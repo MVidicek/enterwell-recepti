@@ -21,8 +21,8 @@ Mini aplikacija za upravljanje receptima izrađena kao zadatak za Enterwell.
 
 ```bash
 # Kloniraj repozitorij
-git clone
-cd recepti
+git clone https://github.com/MVidicek/enterwell-recepti.git
+cd enterwell-recepti
 
 # Instaliraj dependencies
 npm install
