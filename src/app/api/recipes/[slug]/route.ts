@@ -1,18 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { recipes } from '@/lib/db/schema';
-import { updateRecipeSchema } from '@/validators/recipe';
-import { eq } from 'drizzle-orm';
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { recipes } from "@/lib/db/schema";
+import { updateRecipeSchema } from "@/validators/recipe";
+import { eq } from "drizzle-orm";
 
 type RouteParams = {
   params: Promise<{ slug: string }>;
 };
 
 // GET /api/recipes/:slug - dohvati jedan recept
-export async function GET(
-  request: NextRequest,
-  { params }: RouteParams
-) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { slug } = await params;
 
@@ -24,26 +21,27 @@ export async function GET(
 
     if (!recipe) {
       return NextResponse.json(
-        { error: 'Recept nije pronađen' },
+        { error: "Recept nije pronađen" },
         { status: 404 }
       );
     }
 
     return NextResponse.json(recipe);
   } catch (error) {
-    console.error('Error fetching recipe:', error);
+    console.error("Error fetching recipe:", error);
     return NextResponse.json(
-      { error: 'Greška pri dohvaćanju recepta' },
+      { error: "Greška pri dohvaćanju recepta" },
       { status: 500 }
     );
   }
 }
 
 // PUT /api/recipes/:slug - ažuriraj recept
-export async function PUT(
-  request: NextRequest,
-  { params }: RouteParams
-) {
+//
+// Napomena: Slug se ne može mijenjati jer bi to pokvarilo postojeće linkove.
+// Za promjenu naslova koja bi trebala promijeniti slug, preporučam
+// kreiranje novog recepta i redirect sa starog URL-a.
+export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { slug } = await params;
     const body = await request.json();
@@ -54,8 +52,8 @@ export async function PUT(
     if (!validated.success) {
       return NextResponse.json(
         {
-          error: 'Validacijska greška',
-          details: validated.error.flatten()
+          error: "Validacijska greška",
+          details: validated.error.flatten(),
         },
         { status: 400 }
       );
@@ -70,7 +68,7 @@ export async function PUT(
 
     if (!existing) {
       return NextResponse.json(
-        { error: 'Recept nije pronađen' },
+        { error: "Recept nije pronađen" },
         { status: 404 }
       );
     }
@@ -93,19 +91,16 @@ export async function PUT(
 
     return NextResponse.json(updated);
   } catch (error) {
-    console.error('Error updating recipe:', error);
+    console.error("Error updating recipe:", error);
     return NextResponse.json(
-      { error: 'Greška pri ažuriranju recepta' },
+      { error: "Greška pri ažuriranju recepta" },
       { status: 500 }
     );
   }
 }
 
 // DELETE /api/recipes/:slug - obriši recept
-export async function DELETE(
-  request: NextRequest,
-  { params }: RouteParams
-) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { slug } = await params;
 
@@ -118,7 +113,7 @@ export async function DELETE(
 
     if (!existing) {
       return NextResponse.json(
-        { error: 'Recept nije pronađen' },
+        { error: "Recept nije pronađen" },
         { status: 404 }
       );
     }
@@ -129,9 +124,9 @@ export async function DELETE(
     // 204 No Content - uspješno obrisano
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error('Error deleting recipe:', error);
+    console.error("Error deleting recipe:", error);
     return NextResponse.json(
-      { error: 'Greška pri brisanju recepta' },
+      { error: "Greška pri brisanju recepta" },
       { status: 500 }
     );
   }

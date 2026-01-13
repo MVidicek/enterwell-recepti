@@ -107,3 +107,28 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
 - Seed podaci uključuju 5 recepata s realnim sadržajem
 - CRUD operacije persistiraju u SQLite bazu
 - Projekt je optimiziran za SEO s proper metadata na svim stranicama
+
+## Moguća poboljšanja
+
+Stvari koje bih implementirao u produkcijskoj verziji:
+
+### Performance
+- [ ] Redis cache za API response-e
+- [ ] ISR (Incremental Static Regeneration) za stranice recepata
+- [ ] Image optimization s sharp + WebP format
+
+### Features
+- [ ] Full-text search s SQLite FTS5 ili Meilisearch
+- [ ] Filtriranje po kategoriji, težini, vremenu
+- [ ] Korisničke ocjene i komentari
+- [ ] Favoriti (requires auth)
+
+### DevOps
+- [ ] Docker Compose za lokalni development
+- [ ] GitHub Actions CI/CD pipeline
+- [ ] E2E testovi s Playwright
+
+### Sigurnost
+- [ ] Rate limiting na API endpoints
+- [ ] CORS konfiguracija za produkciju
+- [ ] Input sanitization za XSS zaštitu
